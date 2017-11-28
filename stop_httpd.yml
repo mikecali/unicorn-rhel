@@ -1,5 +1,5 @@
 ---
-- hosts: Web2.demo.com
+- hosts: "{{variable_host | default('Web2.demo.com')}}"
   tasks:
   - name: stop httpd
     systemd: state=stopped name=httpd
