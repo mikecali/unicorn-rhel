@@ -2,4 +2,4 @@
 - hosts: Web2.demo.com
   tasks:
   - name: stop httpd
-    systemd: state=stopped name=firewalld
+    systemd: state=stopped name=httpd
