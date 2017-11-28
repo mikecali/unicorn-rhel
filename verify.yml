@@ -1,0 +1,8 @@
+---
+- hosts: tag_ansible_group_webservers
+  tasks:
+  - name: Confirm if HTTPD is running
+    command: systemctl status httpd
+    register: agent_status
+    failed_when: "'NOT' in agent_status.stdout"
+    changed_when: False
