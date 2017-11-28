@@ -1,5 +1,5 @@
 ---
-- hosts: Web2.demo.com
+- hosts: all
   tasks:
   - name: stop httpd
     systemd: state=stopped name=httpd
