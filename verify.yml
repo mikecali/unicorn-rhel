@@ -1,5 +1,5 @@
 ---
-- hosts: tag_ansible_group_webservers
+- hosts: all
   tasks:
   - name: Confirm if HTTPD is running
     command: systemctl status httpd
