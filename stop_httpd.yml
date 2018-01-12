@@ -3,4 +3,4 @@
   tasks:
   - name: stop httpd
     systemd: state=stopped name=httpd
-    when: ansible_hostname == {{ target }}
+    when: ansible_default_ipv4.interface == {{ target }}
