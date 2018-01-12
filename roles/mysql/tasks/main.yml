@@ -19,7 +19,7 @@
 - name : Ensure mysql started
   become: yes
   service: name=mysql state=started enabled=yes
-  when: "'{{ db }}' in inventory_hostname"
+
 
 - name: Update MySQL root password for all root accounts
   mysql_user: name=root 
