@@ -13,8 +13,7 @@
   become: true
   with_items:    
     - mariadb
-    - python-mysqldb
-    - libmysqlclient-dev
+    - mysql-connector-python
 
 - name : Ensure mysql started
   become: yes
