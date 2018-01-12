@@ -1,5 +1,6 @@
 ---
-- hosts: {{ hosts }}
+- hosts: tag_ansible_group_webservers
   tasks:
   - name: stop httpd
     systemd: state=stopped name=httpd
+    when: ansible_hostname | {{ target }}
