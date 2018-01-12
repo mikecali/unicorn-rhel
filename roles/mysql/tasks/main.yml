@@ -1,6 +1,6 @@
 - name: verify if repo is available
   become: yes
-  command: 'rpm -q | grep mysql57'
+  command: "rpm -qa | grep mysql57-community"
   register: verify
 
 - name: Add the repository
