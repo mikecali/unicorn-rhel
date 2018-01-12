@@ -12,8 +12,7 @@
   yum: pkg={{ item }} state=installed
   become: true
   with_items:    
-    - mysql-server
-    - mysql-client
+    - mariadb
     - python-mysqldb
     - libmysqlclient-dev
 
