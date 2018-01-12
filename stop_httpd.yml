@@ -4,4 +4,4 @@
   tasks:
   - name: stop httpd
     systemd: state=stopped name=httpd
-    when: ansible_default_ipv4.interface == 192.168.29.3
+    when: "'{{ target }}' in inventory_hostname"
