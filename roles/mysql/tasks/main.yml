@@ -6,7 +6,7 @@
 - name: Add the repository
   become: yes
   command: rpm -ivh 'https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm'
-  when: verify | success
+  when: verify|failed
 
 - name: Install mysql
   yum: pkg={{ item }} state=installed
