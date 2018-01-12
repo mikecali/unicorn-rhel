@@ -15,9 +15,14 @@
   roles:
   - base-apache
   - web
+  - php-fpm
+  - mysql
   
   tags:
   - web
+
+#configure Mysql
+
 
 # Configure and deploy the load balancer(s).
 - hosts: tag_ansible_group_lbservers
