@@ -1,5 +1,3 @@
-- name: Configure db
-  gather_facts: yes
 
 - name: verify if repo is available
   become: yes
