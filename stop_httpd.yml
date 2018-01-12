@@ -1,5 +1,5 @@
 ---
-- hosts: tag_ansible_group_webservers
+- hosts: all
   tasks:
   - name: stop httpd
     systemd: state=stopped name=httpd
