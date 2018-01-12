@@ -13,7 +13,7 @@
   yum: pkg={{ item }} state=installed
   become: true
   with_items:    
-    - mariadb
+    - mariadb-server
     - mysql-connector-python
 
 - name : Ensure mysql started
