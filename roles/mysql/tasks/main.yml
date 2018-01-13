@@ -22,6 +22,9 @@
   service: name=mysqld state=started enabled=yes
   when: "'{{ db }}' in inventory_hostname"
 
+- name: Install MySQL-Python for Ansible to talk to MySQL
+  yum: pkg=MySQL-python state=installed 
+
 - name: Update MySQL root password for all root accounts
   mysql_user: name=root 
               host={{ item }} 
