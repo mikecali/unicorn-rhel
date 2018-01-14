@@ -33,12 +33,14 @@
     - mysql-libs
     - mysql-connector-java
     - mysql-devel
+  when: "'{{ db }}' in inventory_hostname"
 
 - name: "MySQL: service: ensure mysql started"
   service:
     name: mysqld
     state: started
     enabled: yes
+  when: "'{{ db }}' in inventory_hostname"
 
 - name: "MySQL: mysql_user: update mysql root password for all root accounts"
   mysql_user:
@@ -55,12 +57,14 @@
     - ::1
     - localhost
   ignore_errors: true
+  when: "'{{ db }}' in inventory_hostname"
 
 - name : "MySQL: service: ensure mysql started"
   service:
     name: mysqld
     state: started
     enabled: yes
+  when: "'{{ db }}' in inventory_hostname"
 
 - name: "MySQL: template: .my.cnf file to /root"
   template:
@@ -68,6 +72,7 @@
     dest: "/root"
     owner: "{{linux_admin_id}}"
     mode: 0600
+  when: "'{{ db }}' in inventory_hostname"
 
 - name: "MySQL: template: .my.cnf file to /home/{{linux_user}}"
   template:
@@ -76,9 +81,11 @@
     owner: "{{linux_user}}"
     group: "{{linux_group}}"
     mode: 0600
+  when: "'{{ db }}' in inventory_hostname"
 
 - name: "MySQL: mysql_user: Change Root password"
   mysql_user:
     name: root
     password: "{{default_password}}"
     update_password: always
+  when: "'{{ db }}' in inventory_hostname"
