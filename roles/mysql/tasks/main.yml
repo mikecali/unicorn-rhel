@@ -6,10 +6,8 @@
 
 - name: "MySQL: yum: packages: MySQL5.6CommunityServer"
   yum:
-    name: "{{item}}"
-    state: present
-    enablerepo: MySQL5.6CommunityServer
-    update_cache: yes
+     name: "{{item}}"
+     state: present
   with_items:
     - mysql*
     - mysql-server
@@ -17,7 +15,7 @@
     - mysql-connector-java
     - mysql-devel
   when: "'{{ db }}' in inventory_hostname"
-  become: yes
+  becyome: yes
 
 - name: "MySQL: service: ensure mysql started"
   service:
