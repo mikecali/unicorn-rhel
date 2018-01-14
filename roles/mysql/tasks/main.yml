@@ -3,7 +3,7 @@
   yum: 
      name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
      state: present
-     
+
 - name: "MySQL: yum: packages: MySQL5.6CommunityServer"
   yum:
     name: "{{item}}"
@@ -17,6 +17,7 @@
     - mysql-connector-java
     - mysql-devel
   when: "'{{ db }}' in inventory_hostname"
+  become: yes
 
 - name: "MySQL: service: ensure mysql started"
   service:
