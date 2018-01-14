@@ -1,49 +1,83 @@
-
-- name: verify if repo is available
-  become: yes
-  command: "rpm -qa | grep mysql57-community"
-  register: verify
-
-- name: Add the repository
-  become: yes
-  command: rpm -ivh 'https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm'
-  when: verify|failed
-
-- name: Install mysql
-  yum: pkg={{ item }} state=installed
-  become: true
-  with_items:    
-    - mariadb-server
-    - mysql-connector-python
-  when: "'{{ db }}' in inventory_hostname"
-
-- name: Ensure mysql started
-  become: yes
-  service: name=mysqld state=started enabled=yes
-  when: "'{{ db }}' in inventory_hostname"
-
-- name: Install MySQL-Python for Ansible to talk to MySQL
-  yum: pkg=MySQL-python state=installed 
-
-- name: Update MySQL root password for all root accounts
-  mysql_user: check_implicit_admin=yes
-              login_user=root
-              login_password={{ mysql_root_password }}
-              user=root
-              password={{ NEW_mysql_root_password }}
-              host={{ item }}
-              priv='*.*:ALL,GRANT'
-
+---
+- name: "MySQL: yum_repository: el6: MySQL 5.6 Community Server"
+  yum_repository:
+	name: MySQL5.6CommunityServer
+	description: MySQL5.6CommunityServer
+	baseurl: "{{mysql_el6_url}}"
+	gpgcheck: 0
+	enabled : true
+  when:
+       ansible_distribution == "CentOS"
+       ansible_distribution_major_version == "6"
+- name: "MySQL: yum_repository: el7: MySQL 5.6 Community Server"
+  yum_repository:
+	name: MySQL5.6CommunityServer
+	description: MySQL5.6CommunityServer
+	baseurl: "{{mysql_el7_url}}"
+	gpgcheck: 0
+	enabled : true
+  when:
+		ansible_distribution == "CentOS"
+		ansible_distribution_major_version == "7"
+- name: "MySQL: yum: packages: MySQL5.6CommunityServer"
+  yum:
+	name: "{{item}}"
+	state: present
+	enablerepo: MySQL5.6CommunityServer
+	update_cache: yes
   with_items:
-    - 127.0.0.1
-    - ::1
-    - localhost
-  when: "'{{ db }}' in inventory_hostname"
+		- mysql*
+		- mysql-server
+		- mysql-libs
+		- mysql-connector-java
+		- MySQL-python
+		- mysql-devel
 
-- name: Ensure mysql started
-  become: yes
-  service: name=mysqld state=started enabled=yes
-  when: "'{{ db }}' in inventory_hostname"
+- name: "MySQL: service: ensure mysql started"
+  service:
+	name: mysqld
+	state: started
+	enabled: yes
 
+- name: "MySQL: mysql_user: update mysql root password for all root accounts"
+  mysql_user:
+	name: root
+	host: "{{item}}"
+	password: "{{default_password}}"
+	priv: ".:ALL,GRANT"
+	login_user: root
+	login_password: ""
+	state: present
+  with_items:
+	- "{{default_fqdn}}"
+	- 127.0.0.1
+	- ::1
+	- localhost
+  ignore_errors: true
 
-  
+- name : "MySQL: service: ensure mysql started"
+  service:
+	name: mysqld
+	state: started
+	enabled: yes
+
+- name: "MySQL: template: .my.cnf file to /root"
+  template:
+    src: ../templates/.my.cnf
+    dest: "/root"
+    owner: "{{linux_admin_id}}"
+    mode: 0600
+
+- name: "MySQL: template: .my.cnf file to /home/{{linux_user}}"
+  template:
+	src: ../templates/.my.cnf
+	dest: "/home/{{linux_user}}"
+	owner: "{{linux_user}}"
+	group: "{{linux_group}}"
+	mode: 0600
+
+- name: "MySQL: mysql_user: Change Root password"
+  mysql_user:
+	name: root
+	password: "{{default_password}}"
+	update_password: always
