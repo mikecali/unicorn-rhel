@@ -50,10 +50,10 @@
     login_password: ""
     state: present
   with_items:
-	  - "{{default_fqdn}}"
-	  - 127.0.0.1
-	  - ::1
-	  - localhost
+    - "{{default_fqdn}}"
+    - 127.0.0.1
+    - ::1
+    - localhost
   ignore_errors: true
 
 - name : "MySQL: service: ensure mysql started"
