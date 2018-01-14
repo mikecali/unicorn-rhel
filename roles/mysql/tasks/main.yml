@@ -31,8 +31,7 @@
     - mysql*
     - mysql-server
     - mysql-libs
-	  - mysql-connector-java
-    - MySQL-python
+    - mysql-connector-java
     - mysql-devel
 
 - name: "MySQL: service: ensure mysql started"
