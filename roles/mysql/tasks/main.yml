@@ -27,13 +27,13 @@
     state: present
     enablerepo: MySQL5.6CommunityServer
     update_cache: yes
-    with_items:
-  		- mysql*
-  		- mysql-server
-  		- mysql-libs
-  		- mysql-connector-java
-  		- MySQL-python
-  		- mysql-devel
+  with_items:
+      - mysql*
+      - mysql-server
+      - mysql-libs
+	    - mysql-connector-java
+      - MySQL-python
+      - mysql-devel
 
 - name: "MySQL: service: ensure mysql started"
   service:
