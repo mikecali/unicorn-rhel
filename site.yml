@@ -3,7 +3,8 @@
 
 # Apply common configuration to all hosts
 - hosts: tag_ansible_group
-  
+  gather_facts: yes
+
   roles:
   - common
 
@@ -27,7 +28,8 @@
 
 # Configure and deploy the load balancer(s).
 - hosts: tag_ansible_group_lbservers
-
+  gather_facts: yes
+  
   roles:
   - haproxy
   
