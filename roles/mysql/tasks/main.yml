@@ -1,26 +1,9 @@
 ---
-- name: "MySQL: yum_repository: el6: MySQL 5.6 Community Server"
-  yum_repository:
-     name: MySQL5.6CommunityServer
-     description: MySQL5.6CommunityServer
-     baseurl: "{{mysql_el6_url}}"
-     gpgcheck: 0
-     enabled : true
-  when:
-      - ansible_distribution == "CentOS"
-      - ansible_distribution_major_version == "6"
-
-- name: "MySQL: yum_repository: el7: MySQL 5.6 Community Server"
-  yum_repository:
-    name: MySQL5.6CommunityServer
-    description: MySQL5.6CommunityServer
-    baseurl: "{{mysql_el7_url}}"
-    gpgcheck: 0
-    enabled : true
-  when:
-      - ansible_distribution == "CentOS"
-      - ansible_distribution_major_version == "7"
-
+- name: Install Repo
+  yum: 
+     name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+     state: present
+     
 - name: "MySQL: yum: packages: MySQL5.6CommunityServer"
   yum:
     name: "{{item}}"
