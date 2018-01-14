@@ -1,53 +1,53 @@
 ---
 - name: "MySQL: yum_repository: el6: MySQL 5.6 Community Server"
   yum_repository:
-	name: MySQL5.6CommunityServer
-	description: MySQL5.6CommunityServer
-	baseurl: "{{mysql_el6_url}}"
-	gpgcheck: 0
-	enabled : true
+  	name: MySQL5.6CommunityServer
+  	description: MySQL5.6CommunityServer
+  	baseurl: "{{mysql_el6_url}}"
+  	gpgcheck: 0
+  	enabled : true
   when:
        ansible_distribution == "CentOS"
        ansible_distribution_major_version == "6"
 - name: "MySQL: yum_repository: el7: MySQL 5.6 Community Server"
   yum_repository:
-	name: MySQL5.6CommunityServer
-	description: MySQL5.6CommunityServer
-	baseurl: "{{mysql_el7_url}}"
-	gpgcheck: 0
-	enabled : true
+  	name: MySQL5.6CommunityServer
+  	description: MySQL5.6CommunityServer
+  	baseurl: "{{mysql_el7_url}}"
+  	gpgcheck: 0
+  	enabled : true
   when:
 		ansible_distribution == "CentOS"
 		ansible_distribution_major_version == "7"
 - name: "MySQL: yum: packages: MySQL5.6CommunityServer"
   yum:
-	name: "{{item}}"
-	state: present
-	enablerepo: MySQL5.6CommunityServer
-	update_cache: yes
-  with_items:
-		- mysql*
-		- mysql-server
-		- mysql-libs
-		- mysql-connector-java
-		- MySQL-python
-		- mysql-devel
+  	name: "{{item}}"
+  	state: present
+  	enablerepo: MySQL5.6CommunityServer
+  	update_cache: yes
+    with_items:
+  		- mysql*
+  		- mysql-server
+  		- mysql-libs
+  		- mysql-connector-java
+  		- MySQL-python
+  		- mysql-devel
 
 - name: "MySQL: service: ensure mysql started"
   service:
-	name: mysqld
-	state: started
-	enabled: yes
+  	name: mysqld
+  	state: started
+  	enabled: yes
 
 - name: "MySQL: mysql_user: update mysql root password for all root accounts"
   mysql_user:
-	name: root
-	host: "{{item}}"
-	password: "{{default_password}}"
-	priv: ".:ALL,GRANT"
-	login_user: root
-	login_password: ""
-	state: present
+  	name: root
+  	host: "{{item}}"
+  	password: "{{default_password}}"
+  	priv: ".:ALL,GRANT"
+  	login_user: root
+  	login_password: ""
+  	state: present
   with_items:
 	- "{{default_fqdn}}"
 	- 127.0.0.1
@@ -70,14 +70,14 @@
 
 - name: "MySQL: template: .my.cnf file to /home/{{linux_user}}"
   template:
-	src: ../templates/.my.cnf
-	dest: "/home/{{linux_user}}"
-	owner: "{{linux_user}}"
-	group: "{{linux_group}}"
-	mode: 0600
+  	src: ../templates/.my.cnf
+  	dest: "/home/{{linux_user}}"
+  	owner: "{{linux_user}}"
+  	group: "{{linux_group}}"
+  	mode: 0600
 
 - name: "MySQL: mysql_user: Change Root password"
   mysql_user:
-	name: root
-	password: "{{default_password}}"
-	update_password: always
+  	name: root
+  	password: "{{default_password}}"
+  	update_password: always
