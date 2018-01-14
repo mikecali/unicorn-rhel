@@ -58,9 +58,9 @@
 
 - name : "MySQL: service: ensure mysql started"
   service:
-	  name: mysqld
-	  state: started
-	  enabled: yes
+    name: mysqld
+    state: started
+    enabled: yes
 
 - name: "MySQL: template: .my.cnf file to /root"
   template:
