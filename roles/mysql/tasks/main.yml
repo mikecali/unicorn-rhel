@@ -17,7 +17,7 @@
     - mysql-connector-python
   when: "'{{ db }}' in inventory_hostname"
 
-- name : Ensure mysql started
+- name: Ensure mysql started
   become: yes
   service: name=mysqld state=started enabled=yes
   when: "'{{ db }}' in inventory_hostname"
@@ -26,14 +26,24 @@
   yum: pkg=MySQL-python state=installed 
 
 - name: Update MySQL root password for all root accounts
-  mysql_user: name=root 
-              host={{ item }} 
-              password={{ mysql_root_password }}
+  mysql_user: check_implicit_admin=yes
               login_user=root
-              login_password=""
-              state=present
+              login_password={{ mysql_root_password }}
+              user=root
+              password={{ NEW_mysql_root_password }}
+              host={{ item }}
+              priv='*.*:ALL,GRANT'
+
   with_items:
     - 127.0.0.1
     - ::1
     - localhost
   when: "'{{ db }}' in inventory_hostname"
+
+- name: Ensure mysql started
+  become: yes
+  service: name=mysqld state=started enabled=yes
+  when: "'{{ db }}' in inventory_hostname"
+
+
+  
