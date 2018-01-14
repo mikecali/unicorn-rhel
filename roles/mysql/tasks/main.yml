@@ -14,6 +14,7 @@
     - mysql-libs
     - mysql-connector-java
     - mysql-devel
+    - MySQL-python
   when: "'{{ db }}' in inventory_hostname"
   becyome: yes
 
@@ -52,15 +53,6 @@
     src: ../templates/.my.cnf
     dest: "/root"
     owner: "{{linux_admin_id}}"
-    mode: 0600
-  when: "'{{ db }}' in inventory_hostname"
-
-- name: "MySQL: template: .my.cnf file to /home/{{linux_user}}"
-  template:
-    src: ../templates/.my.cnf
-    dest: "/home/{{linux_user}}"
-    owner: "{{linux_user}}"
-    group: "{{linux_group}}"
     mode: 0600
   when: "'{{ db }}' in inventory_hostname"
 

@@ -1,2 +1,1 @@
-mysql_el7_url: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-mysql_el6_url: https://dev.mysql.com/get/mysql57-community-release-el6-11.noarch.rpm
+linux_admin_id: root
