@@ -7,8 +7,8 @@
      gpgcheck: 0
      enabled : true
   when:
-       ansible_distribution == "CentOS"
-       ansible_distribution_major_version == "6"
+      - ansible_distribution == "CentOS"
+      - ansible_distribution_major_version == "6"
 
 - name: "MySQL: yum_repository: el7: MySQL 5.6 Community Server"
   yum_repository:
@@ -18,8 +18,8 @@
     gpgcheck: 0
     enabled : true
   when:
-       ansible_distribution == "CentOS"
-       ansible_distribution_major_version == "7"
+      - ansible_distribution == "CentOS"
+      - ansible_distribution_major_version == "7"
 
 - name: "MySQL: yum: packages: MySQL5.6CommunityServer"
   yum:
