@@ -1,8 +1,17 @@
 ---
-- name: Install Repo
-  yum: 
-     name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
-     state: present
+#- name: Install Repo
+# yum: 
+#     name: https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+#     state: present
+#  when: "'{{ db }}' in inventory_hostname"
+
+- name: enable MySQL5.6 Repo
+  yum_repository:
+    name: MySQL5.6
+    description: MySQL5 YUM repo
+    baseurl: http://repo.mysql.com/yum/mysql-5.6-community/el/6/$basearch/
+    enabled: yes
+  when: "'{{ db }}' in inventory_hostname"
 
 - name: "MySQL: yum: packages: MySQL5.6CommunityServer"
   yum:
