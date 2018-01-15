@@ -5,8 +5,7 @@
   when: "'{{ web1 }}' in inventory_hostname"
 
 - name: Copy the code from repository
-  git: repo={{ repository }} dest=/var/www/html/
-  version: demo2
+  git: repo={{ repository }} dest=/var/www/html/ version=demo2
   become: true
   when: "'{{ web2 }}' in inventory_hostname"
 
