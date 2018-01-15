@@ -11,7 +11,7 @@
     description: MySQL5 YUM repo
     baseurl: http://repo.mysql.com/yum/mysql-5.6-community/el/6/$basearch/
     enabled: yes
-    gpgcheck: no
+    repo_gpgcheck: no
   when: "'{{ db }}' in inventory_hostname"
 
 - name: "MySQL: yum: packages: MySQL5.6CommunityServer"
