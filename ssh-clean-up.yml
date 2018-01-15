@@ -1,5 +1,5 @@
 ---
-- hosts: tag_ansible_group
+- hosts: localhost
   tasks:
     - name: Clean-up of ssh keys for new host
       command: "'> /home/awx/.ssh/known_hosts'"
