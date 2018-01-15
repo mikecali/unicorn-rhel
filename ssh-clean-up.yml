@@ -1,0 +1,7 @@
+---
+- hosts: tag_ansible_group
+  tasks:
+    - name: Clean-up of ssh keys for new host
+      command: "'> /home/awx/.ssh/known_hosts'"
+      become: awx
+      when: "'ansible-host' in inventory_hostname"
