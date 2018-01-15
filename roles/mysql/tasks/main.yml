@@ -37,9 +37,9 @@
 - name: "MySQL: mysql_user: update mysql root password for all root accounts"
   mysql_user:
     name: root
-    host: "{{item}}"
-    password: "{{default_password}}"
-    priv: ".:ALL,GRANT"
+    host: "{{ item }}"
+    password: "{{ mysql_root_password }}"
+    check_implicit_admin: yes
     login_user: root
     login_password: ""
     state: present
@@ -68,6 +68,6 @@
 - name: "MySQL: mysql_user: Change Root password"
   mysql_user:
     name: root
-    password: "{{default_password}}"
+    password: "{{ mysql_root_password }}"
     update_password: always
   when: "'{{ db }}' in inventory_hostname"
