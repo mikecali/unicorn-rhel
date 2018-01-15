@@ -6,10 +6,10 @@
   - php-http
   - php
 
-- name: Configure php-fom with apache2
-  become: true
-  copy: src=files/www.conf dest=/etc/php/7.0/fpm/pool.d/
+#- name: Configure php-fom with apache2
+#  become: true
+#  copy: src=files/www.conf dest=/etc/php/7.0/fpm/pool.d/
 
-- name: Restart php-fpm
-  become: yes
-  service: name=php-fpm state=restarted
+#- name: Restart php-fpm
+#  become: yes
+#  service: name=php-fpm state=restarted
