@@ -2,12 +2,7 @@
   become: true
   yum: pkg={{ item }} state=installed update_cache=true
   with_items:
-  - php-fpm
-  - php-gd
-  - php-curl
   - php-mysql
-  - php-dom
-  - php-xml
   - php-http
   - php
 
