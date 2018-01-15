@@ -24,7 +24,7 @@
     - mysql-devel
     - MySQL-python
   when: "'{{ db }}' in inventory_hostname"
-  becyome: yes
+  become: yes
 
 - name: "MySQL: service: ensure mysql started"
   service:
