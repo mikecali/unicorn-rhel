@@ -9,4 +9,7 @@
   become: true
   when: "'{{ web2 }}' in inventory_hostname"
 
-
+- name: copy phpinfo.php 
+  copy: src=phpinfo.php dest=/var/www/html/phpinfo
+  become: true
+  when: "'{{ web1 }}' in inventory_hostname"
