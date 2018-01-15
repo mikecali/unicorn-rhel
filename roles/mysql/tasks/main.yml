@@ -21,7 +21,6 @@
   with_items:
     - mysql-server
     - mysql-libs
-    - mysql-connector-java
     - mysql-devel
     - MySQL-python
   when: "'{{ db }}' in inventory_hostname"
