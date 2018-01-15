@@ -5,3 +5,4 @@
       command: "'> /home/awx/.ssh/known_hosts'"
       become: awx
       when: "'ansible-host' in inventory_hostname"
+      become: yes
