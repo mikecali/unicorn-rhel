@@ -1,13 +1,14 @@
-- name: Install php-fpm & php extensions
+- name: Install php & php extensions
   become: true
   yum: pkg={{ item }} state=installed update_cache=true
   with_items:
-  - php-fpm
+  - php
   - php-gd
   - php-curl
   - php-mysql
   - php-dom
   - php-xml
+  - php-http
 
 - name: Configure php-fom with apache2
   become: true
