@@ -11,8 +11,9 @@
 
 - name: Restart Apache
   service: httpd
-  state: started
-  enabled: yes
+     state: started
+     enabled: yes
+  become: yes
 
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
