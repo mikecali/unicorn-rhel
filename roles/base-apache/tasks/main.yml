@@ -10,7 +10,7 @@
   become: true
 
 - name: Restart Apache
-  service: name=httpd state=started enabled=yes
+  service: name=httpd state=restarted enabled=yes
   become: true
 
 - name: Configure SELinux to allow httpd to connect to remote database
