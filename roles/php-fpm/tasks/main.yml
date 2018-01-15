@@ -9,6 +9,7 @@
   - php-dom
   - php-xml
   - php-http
+  - php
 
 - name: Configure php-fom with apache2
   become: true
