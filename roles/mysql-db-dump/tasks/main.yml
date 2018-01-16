@@ -5,9 +5,7 @@
   become: true
 
 - name: untar db
-  unarchive:
-    src:/tmp/test_db-master.zip
-    dest:/tmp/test_db
+  unarchive: src=/tmp/test_db-master.zip dest=/tmp/test_db remote_src=yes
 
 - name: 8. Create database
   mysql_db: name=employee state=present login_user='root' login_password='mypass'
