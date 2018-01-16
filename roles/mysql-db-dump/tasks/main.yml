@@ -1,7 +1,7 @@
 ---
 
 - name: Copy Sample DB
-  fetch: src=/tmp/test_db-master.zip dest=/tmp/test_db-master.zip flat=yes
+  fetch: src=/tmp/test_db-master.zip dest=/tmp/ flat=yes
   become: true
   when: "'{{ db }}' in inventory_hostname"
 
