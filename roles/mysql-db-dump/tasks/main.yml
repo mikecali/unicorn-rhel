@@ -14,11 +14,11 @@
 - name: untar db
   unarchive: src=/tmp/demo_db/test_db-master.zip dest=/tmp/ remote_src=yes
   when: "'{{ db }}' in inventory_hostname"
-  
+
 - name: 8. Create database
   mysql_db: name=employee state=present login_user='root' login_password='mypass'
   when: "'{{ db }}' in inventory_hostname"
 
 - name: 9. Import data
-  mysql_db: name=employee state=import target=/tmp/demo_demo_db/test_db-master/employees.sql login_user='root' login_password='mypass'
+  mysql_db: name=employee state=import target=/tmp/demo_db/test_db-master/employees.sql login_user='root' login_password='mypass'
   when: "'{{ db }}' in inventory_hostname"
