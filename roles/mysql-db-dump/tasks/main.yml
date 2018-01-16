@@ -20,5 +20,5 @@
   when: "'{{ db }}' in inventory_hostname"
 
 - name: 9. Import data
-  mysql_db: name=employee state=import target=/tmp/demo_db/test_db-master/employees.sql login_user='root' login_password='mypass'
+  mysql_db: name=employee state=import target=/tmp/test_db-master/employees.sql login_user='root' login_password='mypass'
   when: "'{{ db }}' in inventory_hostname"
