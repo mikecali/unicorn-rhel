@@ -1,13 +1,18 @@
 ---
 
 - name: Copy Sample DB
-  copy: src=employees.sql dest=/tmp/employees.sql owner=root group=root mode=644
+  copy: src=/tmp/test_db-master.zip dest=/tmp/test_db-master.zip owner=root group=root mode=644
   become: true
+
+- name: untar db
+  unarchive:
+    src:/tmp/test_db-master.zip
+    dest:/tmp/test_db
 
 - name: 8. Create database
   mysql_db: name=employee state=present login_user='root' login_password='mypass'
   when: "'{{ db }}' in inventory_hostname"
 
 - name: 9. Import data
-  mysql_db: name=employee state=import target=/tmp/employees.sql login_user='root' login_password='mypass'
+  mysql_db: name=employee state=import target=/tmp/test_db/employees.sql login_user='root' login_password='mypass'
   when: "'{{ db }}' in inventory_hostname"
