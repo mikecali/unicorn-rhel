@@ -8,7 +8,7 @@
 
 - name: Copy Sample DB
   copy: src=/tmp/test_db-master.zip dest=/tmp/demo_db
-  become: true
+  become_user: vagrant
   when: "'{{ db }}' in inventory_hostname"
 
 - name: untar db
