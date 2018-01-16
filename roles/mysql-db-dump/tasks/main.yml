@@ -1,10 +1,10 @@
 ---
 
 - name: Copy Sample DB
-  copy: src=/tmp/test_db-master.zip dest=/tmp/test_db-master.zip owner=root group=root mode=644
+  copy: src=/tmp/test_db-master.zip dest=/tmp/demo/test_db-master.zip owner=root group=root mode=644
   become: true
   when: "'{{ db }}' in inventory_hostname"
-  remote_src: yes
+  
 
 - name: untar db
   unarchive: src=/tmp/test_db-master.zip dest=/tmp/test_db remote_src=yes
