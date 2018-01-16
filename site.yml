@@ -19,6 +19,7 @@
   - web
   - php-fpm
   - mysql
+  - mysql-db-dump
   
   tags:
   - web

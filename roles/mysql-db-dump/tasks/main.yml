@@ -1,0 +1,7 @@
+---
+
+- name: 8. Create database
+  mysql_db: name=employee state=present login_user='root' login_password='mypass'
+
+- name: 9. Import data
+  mysql_db: name=employee state=import target=employees.sql login_user='root' login_password='mypass'
