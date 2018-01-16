@@ -6,10 +6,10 @@
     state: directory
     mode: 0755
 
-- name: Copy Sample DB
-  copy: src=/tmp/test_db-master.zip dest=/tmp/demo_db
-  become_user: vagrant
-  when: "'{{ db }}' in inventory_hostname"
+#- name: Copy Sample DB
+# copy: src=/tmp/test_db-master.zip dest=/tmp/demo_db
+#  become_user: vagrant
+#  when: "'{{ db }}' in inventory_hostname"
 
 - name: untar db
   unarchive: src=/tmp/demo_db/test_db-master.zip dest=/tmp/ remote_src=yes
