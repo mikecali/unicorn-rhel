@@ -6,10 +6,18 @@
     state: directory
     mode: 0755
 
+- name: copy the sample db
+  copy:
+    src: /tmp/vagrant
+    dest: /home/vagrant/
+    owner: vagrant
+    group: vagrant
+    mode: 0644
+  become: yes
+  
 - name: install unzip as needed 
   yum: name=unzip state=latest
   when: "'{{ db }}' in inventory_hostname"
-
 
 - name: untar db
   unarchive: src=/tmp/test_db-master.zip dest=/tmp/ remote_src=yes
