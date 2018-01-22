@@ -6,15 +6,6 @@
     state: directory
     mode: 0755
 
-- name: copy file to db server
-  copy: 
-    src: /tmp/test_db-master.zip 
-    dest: /tmp
-    owner: awx
-    group: awx
-    mode: 0644
-  when: "'{{ db }}' in inventory_hostname"
-
 
 - name: untar db
   unarchive: src=/tmp/test_db-master.zip dest=/tmp/ remote_src=yes
