@@ -6,6 +6,10 @@
     state: directory
     mode: 0755
 
+- name: install unzip as needed 
+  yum: name=unzip state=latest
+  when: "'{{ db }}' in inventory_hostname"
+
 
 - name: untar db
   unarchive: src=/tmp/test_db-master.zip dest=/tmp/ remote_src=yes
