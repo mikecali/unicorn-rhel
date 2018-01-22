@@ -13,7 +13,9 @@
     owner: awx
     group: awx
     mode: 0644
-    
+  when: "'{{ db }}' in inventory_hostname"
+
+
 - name: untar db
   unarchive: src=/tmp/test_db-master.zip dest=/tmp/ remote_src=yes
   when: "'{{ db }}' in inventory_hostname"
