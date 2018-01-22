@@ -7,7 +7,7 @@
     mode: 0755
 
 - name: untar db
-  unarchive: src=/tmp/demo_db/test_db-master.zip dest=/tmp/ remote_src=yes
+  unarchive: src=/tmp/test_db-master.zip dest=/tmp/ remote_src=yes
   when: "'{{ db }}' in inventory_hostname"
 
 - name: 8. Create database
