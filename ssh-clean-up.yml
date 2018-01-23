@@ -1,8 +1,8 @@
 ---
 - hosts: localhost
   become: yes
-  gather_facts: yes
-
+  gather_facts: no
+  
   tasks:
     - name: Clean-up of ssh keys for new host
       command: "cp /dev/null /home/awx/.ssh/known_hosts"
