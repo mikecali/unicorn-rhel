@@ -1,5 +1,26 @@
 ---
 - hosts: tag_ansible_group_webservers
   tasks:
+  - name: Install http and php
+    yum: name={{ item }} state=present
+    with_items:
+      - httpd
+      - git
+      - php
+    become: true
+
+  - name: Restart Apache
+    service: name=httpd state=restarted enabled=yes
+    become: true
+
+  - name: Configure SELinux to allow httpd to connect to remote database
+    seboolean: name=httpd_can_network_connect_db state=true persistent=yes
+    when: sestatus.rc != 0
+    become: true
+
+  - name: http service state
+    service: name=httpd state=started enabled=yes
+    become: true
+
   - name: start httpd
     systemd: state=started name=httpd
