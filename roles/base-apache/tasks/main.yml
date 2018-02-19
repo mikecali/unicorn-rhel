@@ -13,6 +13,11 @@
   service: name=httpd state=restarted enabled=yes
   become: true
 
+- name: Check status of SElinux
+  service: nam=selinux state=restarted enabled=yes
+  become: true
+  register: sestatus
+
 - name: Configure SELinux to allow httpd to connect to remote database
   seboolean: name=httpd_can_network_connect_db state=true persistent=yes
   when: sestatus.rc != 0
