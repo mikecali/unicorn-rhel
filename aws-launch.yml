@@ -7,12 +7,12 @@
 
   tasks:
   
-  - set_fact: ec2_region=ap-southeast-2
-  - set_fact: iam_role=EC2_Admin 
-  - set_fact: ec2_image=ami-dda36dbf
+  - set_fact: ec2_region=us-east-2
+  - set_fact: iam_role=ec2
+  - set_fact: ec2_image=ami-03291866
   - set_fact: ec2_keypair=ec2-ocp.pem
-  - set_fact: subnet_to_use=subnet-e318b5aa
-  - set_fact: ec2_security_group=sg-a1450ed8
+  - set_fact: subnet_to_use=subnet-e419d49e
+  - set_fact: ec2_security_group=sg-315cd65b
   - set_fact: ec2_instance_type=t2.micro
   - set_fact: ec2_instance_count=2
   
