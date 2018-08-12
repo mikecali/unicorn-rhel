@@ -9,10 +9,11 @@
   
   - set_fact: aws_region=ap-southeast-2
   - set_fact: iam_role=EC2_Admin 
-  - set_fact: ami_to_use=ami-dda36dbf
-  - set_fact: key_to_use=talor-key
+  - set_fact: ec2_image=ami-dda36dbf
+  - set_fact: ec2_keypair=ec2-ocp.pem
   - set_fact: subnet_to_use=subnet-e318b5aa
-  - set_fact: sg_to_use=sg-a1450ed8
+  - set_fact: ec2_security_group=sg-a1450ed8
+  - set_fact: ec2_instance_type=t2.micro
   
   - name: Launch webserver instances
     ec2:
