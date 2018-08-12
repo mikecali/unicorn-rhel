@@ -28,6 +28,13 @@
          - device_name: /dev/sda1
            volume_size: 10
            delete_on_termination: true
+      instance_tags:
+        Name: "{{ items }}"
+        Creator: Ansible
+        Purpose: "Instance created by Ansible from {{ ami_to_use }}"
+      with_items:
+           - "{{ wserver1 }}"
+           - "{{ webserver2 }}"
       region: "{{ ec2_region }}"
       instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
       count: "{{ ec2_instance_count }}"
@@ -46,17 +53,18 @@
          - device_name: /dev/sda1
            volume_size: 10
            delete_on_termination: true
+      instance_tags:
+        Name: "{{ instance_name_lb }}"
+        Creator: Ansible
+        Purpose: "Instance created by Ansible from {{ ami_to_use }}"
       region: "{{ ec2_region }}"
       instance_tags: "{'ansible_group':'lbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
       count: "1"
       wait: true
     register: ec2
 
-  - name: Wait for SSH to come up
+ - name: Wait for 22 to start listening 
     wait_for:
-      host: "{{ item.public_dns_name }}"
       port: 22
-      delay: 60
-      timeout: 320
-      state: started
-    with_items: "{{ ec2.instances }}"
+      host: "{{ instance_facts.instances[0].network_interfaces[0].association.public_ip }}"
+    msg: "Timeout waiting for 22 to respond"
