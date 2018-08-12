@@ -12,7 +12,7 @@
   - set_fact: ec2_image=ami-03291866
   - set_fact: ec2_keypair=ec2-ocp.pem
   - set_fact: subnet_to_use=subnet-e419d49e
-  - set_fact: ec2_security_group=sg-315cd65b
+  - set_fact: ec2_security_group=sg-bf0f3dd5
   - set_fact: ec2_instance_type=t2.micro
   - set_fact: ec2_instance_count=2
   
