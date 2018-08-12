@@ -14,6 +14,7 @@
   - set_fact: subnet_to_use=subnet-e318b5aa
   - set_fact: ec2_security_group=sg-a1450ed8
   - set_fact: ec2_instance_type=t2.micro
+  - set_fact: ec2_instance_count=2
   
   - name: Launch webserver instances
     ec2:
