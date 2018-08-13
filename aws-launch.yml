@@ -2,6 +2,7 @@
 # Provision instances in AWS specific to the Linux-Apache HA Proxy demo
 - name: Provision instances in AWS
   hosts: localhost
+  become: false
   connection: local
   gather_facts: False
 
