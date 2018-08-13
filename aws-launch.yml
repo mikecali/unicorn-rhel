@@ -5,12 +5,6 @@
   become: false
   connection: local
   gather_facts: False
-  
-  vars:
-    instance_ids:
-      - "{{ wserver1 }}"
-      - "{{ wserver2 }}"
-     
 
   tasks:
   
@@ -23,11 +17,10 @@
   - set_fact: ec2_instance_type=t2.micro
   - set_fact: ec2_instance_count=2
   
-  - name: Launch webserver instances
+  - name: Launch webserver1 instances
     ec2:
 #      access_key: "{{ ec2_access_key }}"
 #      secret_key: "{{ ec2_secret_key }}"
-      instance_ids: "{{ instance_ids }}"
       keypair: "{{ ec2_keypair }}"
       group_id: "{{ ec2_security_group }}"
       instance_type: "{{ ec2_instance_type }}"
@@ -37,7 +30,29 @@
            volume_size: 10
            delete_on_termination: true
       instance_tags:
-        Name: "{{ items }}"
+        Name: webserver1
+        Creator: Ansible
+        Purpose: "Instance created by Ansible from {{ ami_to_use }}"
+      region: "{{ ec2_region }}"
+      instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
+      count: "{{ ec2_instance_count }}"
+      wait: true
+    register: ec2
+    
+  - name: Launch webserver2 instances
+    ec2:
+#      access_key: "{{ ec2_access_key }}"
+#      secret_key: "{{ ec2_secret_key }}"
+      keypair: "{{ ec2_keypair }}"
+      group_id: "{{ ec2_security_group }}"
+      instance_type: "{{ ec2_instance_type }}"
+      image: "{{ ec2_image }}"
+      volumes:
+         - device_name: /dev/sda1
+           volume_size: 10
+           delete_on_termination: true
+      instance_tags:
+        Name: webserver2
         Creator: Ansible
         Purpose: "Instance created by Ansible from {{ ami_to_use }}"
       region: "{{ ec2_region }}"
@@ -67,7 +82,14 @@
       count: "1"
       wait: true
     register: ec2
-
+    
+  - name: Grab EC2 instance facts
+    ec2_instance_facts:
+      region: us-east-2
+      instance_ids:
+       - "{{ ec2_instance.instances[0].id }}"
+    register: instance_facts
+    
   - name: Wait for 22 to start listening 
     wait_for:
       port: 22
