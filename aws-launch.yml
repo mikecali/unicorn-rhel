@@ -29,12 +29,8 @@
          - device_name: /dev/sda1
            volume_size: 10
            delete_on_termination: true
-      instance_tags:
-        Name: "{{ wserver1 }}"
-        Creator: Ansible
-        Purpose: "Instance created by Ansible from {{ ami_to_use }}"
       region: "{{ ec2_region }}"
-      instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
+      instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'{{ wserver2 }}'}"
       count: "{{ ec2_instance_count }}"
       wait: true
     register: ec2_instance
@@ -54,18 +50,14 @@
          - device_name: /dev/sda1
            volume_size: 10
            delete_on_termination: true
-      instance_tags:
-        Name: "{{ wserver2 }}"
-        Creator: Ansible
-        Purpose: "Instance created by Ansible from {{ ami_to_use }}"
       region: "{{ ec2_region }}"
-      instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
+      instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'{{ wserver1 }}'}"
       count: "{{ ec2_instance_count }}"
       wait: true
     register: ec2_instance
 
   - debug: var=ec2_instance
-  - debug: var=weserver2
+  - debug: var=wserver2
 
   - name: Launch load balancing instance
     ec2:
@@ -79,12 +71,8 @@
          - device_name: /dev/sda1
            volume_size: 10
            delete_on_termination: true
-      instance_tags:
-        Name: "{{ instance_name_lb }}"
-        Creator: Ansible
-        Purpose: "Instance created by Ansible from {{ ami_to_use }}"
       region: "{{ ec2_region }}"
-      instance_tags: "{'ansible_group':'lbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
+      instance_tags: "{'ansible_group':'lbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'{{ instance_name_lb }}'}"
       count: "1"
       wait: true
     register: ec2_instance
