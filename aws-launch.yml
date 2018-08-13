@@ -5,6 +5,12 @@
   become: false
   connection: local
   gather_facts: False
+  
+  vars:
+    instance_ids:
+      - "{{ wserver1 }}"
+      - "{{ wserver2 }}"
+     
 
   tasks:
   
@@ -21,6 +27,7 @@
     ec2:
 #      access_key: "{{ ec2_access_key }}"
 #      secret_key: "{{ ec2_secret_key }}"
+      instance_ids: "{{ instance_ids }}"
       keypair: "{{ ec2_keypair }}"
       group_id: "{{ ec2_security_group }}"
       instance_type: "{{ ec2_instance_type }}"
@@ -33,9 +40,6 @@
         Name: "{{ items }}"
         Creator: Ansible
         Purpose: "Instance created by Ansible from {{ ami_to_use }}"
-      with_items:
-           - "{{ wserver1 }}"
-           - "{{ wserver2 }}"
       region: "{{ ec2_region }}"
       instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
       count: "{{ ec2_instance_count }}"
