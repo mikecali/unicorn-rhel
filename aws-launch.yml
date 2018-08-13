@@ -63,7 +63,7 @@
       wait: true
     register: ec2
 
- - name: Wait for 22 to start listening 
+  - name: Wait for 22 to start listening 
     wait_for:
       port: 22
       host: "{{ instance_facts.instances[0].network_interfaces[0].association.public_ip }}"
