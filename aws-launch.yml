@@ -64,8 +64,8 @@
       wait: true
     register: ec2_instance
 
-- debug: var=ec2_instance
-- debug: var=weserver2
+  - debug: var=ec2_instance
+  - debug: var=weserver2
 
   - name: Launch load balancing instance
     ec2:
