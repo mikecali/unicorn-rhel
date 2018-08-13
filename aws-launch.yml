@@ -37,7 +37,7 @@
       instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
       count: "{{ ec2_instance_count }}"
       wait: true
-    register: ec2
+    register: ec2_instance
   
   - debug: var=ec2_instance
   - debug: var=wserver1
@@ -62,7 +62,7 @@
       instance_tags: "{'ansible_group':'webservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
       count: "{{ ec2_instance_count }}"
       wait: true
-    register: ec2
+    register: ec2_instance
 
 - debug: var=ec2_instance
 - debug: var=weserver2
@@ -87,7 +87,7 @@
       instance_tags: "{'ansible_group':'lbservers', 'type':'{{ ec2_instance_type }}', 'group':'{{ ec2_security_group }}', 'Name':'demo_''{{ tower_user_name }}'}"
       count: "1"
       wait: true
-    register: ec2
+    register: ec2_instance
     
   - name: Grab EC2 instance facts
     ec2_instance_facts:
