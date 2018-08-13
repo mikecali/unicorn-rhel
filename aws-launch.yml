@@ -15,7 +15,7 @@
   - set_fact: subnet_to_use=subnet-e419d49e
   - set_fact: ec2_security_group=sg-bf0f3dd5
   - set_fact: ec2_instance_type=t2.micro
-  - set_fact: ec2_instance_count=2
+  - set_fact: ec2_instance_count=1
   
   - name: Launch webserver1 instances
     ec2:
@@ -30,7 +30,7 @@
            volume_size: 10
            delete_on_termination: true
       instance_tags:
-        Name: webserver1
+        Name: "{{ wserver1 }}"
         Creator: Ansible
         Purpose: "Instance created by Ansible from {{ ami_to_use }}"
       region: "{{ ec2_region }}"
@@ -38,7 +38,10 @@
       count: "{{ ec2_instance_count }}"
       wait: true
     register: ec2
-    
+  
+  - debug: var=ec2_instance
+  - debug: var=wserver1
+  
   - name: Launch webserver2 instances
     ec2:
 #      access_key: "{{ ec2_access_key }}"
@@ -52,7 +55,7 @@
            volume_size: 10
            delete_on_termination: true
       instance_tags:
-        Name: webserver2
+        Name: "{{ wserver2 }}"
         Creator: Ansible
         Purpose: "Instance created by Ansible from {{ ami_to_use }}"
       region: "{{ ec2_region }}"
@@ -60,6 +63,9 @@
       count: "{{ ec2_instance_count }}"
       wait: true
     register: ec2
+
+- debug: var=ec2_instance
+- debug: var=weserver2
 
   - name: Launch load balancing instance
     ec2:
